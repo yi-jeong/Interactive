@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>페럴렉스 페이지를 구현하자!</title>
+<style>
+p,section{margin:0;padding:0;}
+.section{
+    position: relative;
+    width:100%;
+    height:100vh;
+}
+.text{
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin:0;
+    transition: all .5s ease;
+    letter-spacing: -1px;
+    font-size:3rem;
+}
+
+</style>
+</head>
+<body>
+    
+<div class="wrap">
+
+    <section class="section">
+        <p class="text" style="opacity:1"><b style="color:#367abd">바다</b>여 말해주네</p>
+    </section>
+
+    <section class="section">
+        <p class="text">다 잊을 때라고</p>
+    </section>
+
+    <section class="section">
+        <p class="text">이 부는 바람에 모두 날려버려</p>
+    </section>
+
+    <section class="section">
+        <p class="text">저 바다 건너 다들 행복하다고</p>
+    </section>
+
+    <section class="section">
+        <p class="text">걱정 말라고 나나 잘 하라 하네</p>
+    </section>
+
+    <!-- <section class="section">
+        <p class="text">바다여 말해주네</p>
+        <p class="text">다 잊을 때라고</p>
+        <p class="text">이 부는 바람에 모두 날려버려</p>
+        <p class="text">저 바다 건너 다들 행복하다고</p>
+        <p class="text">걱정 말라고 나나 잘 하라 하네</p>
+    </section> -->
+
+</div>
+
+<script>
+
+    const Wrap=document.getElementsByClassName("section")
+    const Box=document.getElementsByClassName("text");
+
+    window.scroll({top : 0, behavior: 'smooth'});
+
+    console.log(Wrap[1].offsetTop)
+
+    document.addEventListener('scroll', (e) =>{
+        if(window.scrollY < Wrap[1].offsetTop ){
+            const clientRect = Wrap[0].getBoundingClientRect();
+            const relativeTop = clientRect.top;
+            Box[0].style.opacity=1;
+            Box[1].style.opacity=0;
+            Box[2].style.opacity=0;
+            Box[3].style.opacity=0;
+            Box[4].style.opacity=0;
+            console.log(clientRect);
+            console.log(Wrap[1].offsetTop+relativeTop);
+        }
+        if(window.scrollY > Wrap[1].offsetTop ){
+            const clientRect = Wrap[1].getBoundingClientRect();
+            const relativeTop = clientRect.top;
+            Box[0].style.opacity=0;
+            Box[1].style.opacity=1;
+            Box[2].style.opacity=0;
+            Box[3].style.opacity=0;
+            Box[4].style.opacity=0;
+
+        }
+        if(window.scrollY > Wrap[2].offsetTop){
+            Box[0].style.opacity=0;
+            Box[1].style.opacity=0;
+            Box[2].style.opacity=1;
+            Box[3].style.opacity=0;
+            Box[4].style.opacity=0;
+        }
+        if(window.scrollY > Wrap[3].offsetTop ){
+            Box[0].style.opacity=0;
+            Box[1].style.opacity=0;
+            Box[2].style.opacity=0;
+            Box[3].style.opacity=1;
+            Box[4].style.opacity=0;
+        }
+        if(window.scrollY > Wrap[4].offsetTop ){
+            Box[0].style.opacity=0;
+            Box[1].style.opacity=0;
+            Box[2].style.opacity=0;
+            Box[3].style.opacity=0;
+            Box[4].style.opacity=1;
+        }
+    });
+
+</script>
+
+</body>
+</html>
