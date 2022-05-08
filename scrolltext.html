@@ -14,10 +14,8 @@ p,section{margin:0;padding:0;}
 }
 .text{
     position: fixed;
-    top: 50%;
+    top: 40%;
     left:50%;
-    transform: translate(-50%,-50%);
-    opacity: 0;
     font-size: 40px;
     width: 100%;
     text-align: center;
@@ -25,6 +23,7 @@ p,section{margin:0;padding:0;}
     transition: all .5s ease;
     letter-spacing: -1px;
     font-size:3rem;
+    opacity: 0;
 }
 
 </style>
@@ -33,7 +32,7 @@ p,section{margin:0;padding:0;}
     
 <div class="wrap">
 
-    <section class="section">
+    <!-- <section class="section">
         <p class="text" style="opacity:1"><b style="color:#367abd">바다</b>여 말해주네</p>
     </section>
 
@@ -51,71 +50,201 @@ p,section{margin:0;padding:0;}
 
     <section class="section">
         <p class="text">걱정 말라고 나나 잘 하라 하네</p>
-    </section>
-
-    <!-- <section class="section">
-        <p class="text">바다여 말해주네</p>
-        <p class="text">다 잊을 때라고</p>
-        <p class="text">이 부는 바람에 모두 날려버려</p>
-        <p class="text">저 바다 건너 다들 행복하다고</p>
-        <p class="text">걱정 말라고 나나 잘 하라 하네</p>
     </section> -->
+
+    <section class="section" id="section-01">
+        <div class="box">
+            <p class="text a">바다여 말해주네</p>
+        </div>
+        <div class="box">
+            <p class="text b">다 잊을 때라고</p>
+        </div>
+        <div class="box">
+            <p class="text c">이 부는 바람에 모두 날려버려</p>
+        </div>
+        <div class="box">
+            <p class="text d">저 바다 건너 다들 행복하다고</p>
+        </div>
+        <div class="box">
+            <p class="text e">걱정 말라고 나나 잘 하라 하네</p>
+        </div>
+    </section>
 
 </div>
 
 <script>
 
-    const Wrap=document.getElementsByClassName("section")
-    const Box=document.getElementsByClassName("text");
+    (()=>{
+        let yOffset = 0;
+        let prevScrollHeight = 0; 
+        let delayedYOffset = 0;
+        let currentSection = 0;
 
-    window.scroll({top : 0, behavior: 'smooth'});
+        const sectionInfo=[
+            {
+                heightNum: 5,
+                scrollHeight:0,
+                objs: {
+                    container: document.querySelector('#section-01'),
+                    messageA: document.querySelector('#section-01 .a'),
+                    messageB: document.querySelector('#section-01 .b'),
+                    messageC: document.querySelector('#section-01 .c'),
+                    messageD: document.querySelector('#section-01 .d'),
+                    messageE: document.querySelector('#section-01 .e')
+                },
+                values: {
+                    messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+                    messageB_opacity_in: [0, 1, { start: 0.25, end: 0.35 }],
+                    messageC_opacity_in: [0, 1, { start: 0.4, end: 0.5 }],
+                    messageD_opacity_in: [0, 1, { start: 0.55, end: 0.65 }],
+                    messageE_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
+                    messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+                    messageB_translateY_in: [20, 0, { start: 0.25, end: 0.35 }],
+                    messageC_translateY_in: [20, 0, { start: 0.4, end: 0.5 }],
+                    messageD_translateY_in: [20, 0, { start: 0.55, end: 0.65 }],
+                    messageE_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
+                    messageA_opacity_out: [1, 0, { start: 0.2, end: 0.25 }],
+                    messageB_opacity_out: [1, 0, { start: 0.35, end: 0.4 }],
+                    messageC_opacity_out: [1, 0, { start: 0.5, end: 0.55 }],
+                    messageD_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
+                    messageE_opacity_out: [1, 0, { start: 0.8, end: 0.85 }],
+                    messageA_translateY_out: [0, -20, { start: 0.2, end: 0.25 }],
+                    messageB_translateY_out: [0, -20, { start: 0.35, end: 0.4}],
+                    messageC_translateY_out: [0, -20, { start: 0.5, end: 0.55 }],
+                    messageD_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
+                    messageE_translateY_out: [0, -20, { start: 0.8, end: 0.85 }]
+			    }
+            }
+        ]
 
-    console.log(Wrap[1].offsetTop)
+        function setLayout(){
+            for(let i=0; i < sectionInfo.length; i++){
+                sectionInfo[i].scrollHeight = sectionInfo[i].heightNum * window.innerHeight;
+                sectionInfo[i].objs.container.style.height = `${sectionInfo[i].scrollHeight}px`;
+            }
 
-    document.addEventListener('scroll', (e) =>{
-        if(window.scrollY < Wrap[1].offsetTop ){
-            const clientRect = Wrap[0].getBoundingClientRect();
-            const relativeTop = clientRect.top;
-            Box[0].style.opacity=1;
-            Box[1].style.opacity=0;
-            Box[2].style.opacity=0;
-            Box[3].style.opacity=0;
-            Box[4].style.opacity=0;
-            console.log(clientRect);
-            console.log(Wrap[1].offsetTop+relativeTop);
-        }
-        if(window.scrollY > Wrap[1].offsetTop ){
-            const clientRect = Wrap[1].getBoundingClientRect();
-            const relativeTop = clientRect.top;
-            Box[0].style.opacity=0;
-            Box[1].style.opacity=1;
-            Box[2].style.opacity=0;
-            Box[3].style.opacity=0;
-            Box[4].style.opacity=0;
 
+            yOffset = window.pageYOffset;
+
+            let totalScrollHeight = 0;
+            for(let i=0; i < sectionInfo.length; i++){
+                totalScrollHeight =+ sectionInfo[i].scrollHeight;
+                if(totalScrollHeight>=yOffset){
+                    currentSection= i;
+                    break;
+                }
+            }
+            
         }
-        if(window.scrollY > Wrap[2].offsetTop){
-            Box[0].style.opacity=0;
-            Box[1].style.opacity=0;
-            Box[2].style.opacity=1;
-            Box[3].style.opacity=0;
-            Box[4].style.opacity=0;
+
+        function scrollLoop(){
+            enterNewScene = false;
+            prevScrollHeight = 0;
+
+            for(let i=0; i < currentSection; i++){
+                prevScrollHeight += sectionInfo[i].scrollHeight;
+            }
+
+            playAnimation();
         }
-        if(window.scrollY > Wrap[3].offsetTop ){
-            Box[0].style.opacity=0;
-            Box[1].style.opacity=0;
-            Box[2].style.opacity=0;
-            Box[3].style.opacity=1;
-            Box[4].style.opacity=0;
+
+        function playAnimation(){
+            const objs = sectionInfo[currentSection].objs;
+            const values = sectionInfo[currentSection].values;
+            const currentYOffset = yOffset - prevScrollHeight;
+            const scrollHeight = sectionInfo[currentSection].scrollHeight;
+            const scrollRatio = currentYOffset / scrollHeight;
+
+            switch(currentSection){
+                case 0:
+                    if (scrollRatio <= 0.15) {
+                        // in
+                        objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
+                        objs.messageA.style.transform = `translate3d(-50%, ${calcValues(values.messageA_translateY_in, currentYOffset)}%, 0)`;
+                    } else {
+                        // out
+                        objs.messageA.style.opacity = calcValues(values.messageA_opacity_out, currentYOffset);
+                        objs.messageA.style.transform = `translate3d(-50%, ${calcValues(values.messageA_translateY_out, currentYOffset)}%, 0)`;
+                    }
+
+                    if (scrollRatio <= 0.3) {
+                        // in
+                        objs.messageB.style.opacity = calcValues(values.messageB_opacity_in, currentYOffset);
+                        objs.messageB.style.transform = `translate3d(-50%, ${calcValues(values.messageB_translateY_in, currentYOffset)}%, 0)`;
+                    } else {
+                        // out
+                        objs.messageB.style.opacity = calcValues(values.messageB_opacity_out, currentYOffset);
+                        objs.messageB.style.transform = `translate3d(-50%, ${calcValues(values.messageB_translateY_out, currentYOffset)}%, 0)`;
+                    }
+
+                    if (scrollRatio <= 0.45) {
+                        // in
+                        objs.messageC.style.opacity = calcValues(values.messageC_opacity_in, currentYOffset);
+                        objs.messageC.style.transform = `translate3d(-50%, ${calcValues(values.messageC_translateY_in, currentYOffset)}%, 0)`;
+                    } else {
+                        // out
+                        objs.messageC.style.opacity = calcValues(values.messageC_opacity_out, currentYOffset);
+                        objs.messageC.style.transform = `translate3d(-50%, ${calcValues(values.messageC_translateY_out, currentYOffset)}%, 0)`;
+                    }
+
+                    if (scrollRatio <= 0.6) {
+                        // in
+                        objs.messageD.style.opacity = calcValues(values.messageD_opacity_in, currentYOffset);
+                        objs.messageD.style.transform = `translate3d(-50%, ${calcValues(values.messageD_translateY_in, currentYOffset)}%, 0)`;
+                    } else {
+                        // out
+                        objs.messageD.style.opacity = calcValues(values.messageD_opacity_out, currentYOffset);
+                        objs.messageD.style.transform = `translate3d(-50%, ${calcValues(values.messageD_translateY_out, currentYOffset)}%, 0)`;
+                    }
+
+                    if (scrollRatio <= 0.75) {
+                        // in
+                        objs.messageE.style.opacity = calcValues(values.messageE_opacity_in, currentYOffset);
+                        objs.messageE.style.transform = `translate3d(-50%, ${calcValues(values.messageD_translateY_in, currentYOffset)}%, 0)`;
+                    } else {
+                        // out
+                        objs.messageE.style.opacity = calcValues(values.messageE_opacity_out, currentYOffset);
+                        objs.messageE.style.transform = `translate3d(-50%, ${calcValues(values.messageD_translateY_out, currentYOffset)}%, 0)`;
+                    }
+
+                    break;
+            }
         }
-        if(window.scrollY > Wrap[4].offsetTop ){
-            Box[0].style.opacity=0;
-            Box[1].style.opacity=0;
-            Box[2].style.opacity=0;
-            Box[3].style.opacity=0;
-            Box[4].style.opacity=1;
+
+        function calcValues(values, currentYOffset){
+            let rv;
+            const scrollHeight = sectionInfo[currentSection].scrollHeight;
+            const scrollRatio = currentYOffset / scrollHeight;
+
+            if (values.length === 3) {
+                // start ~ end 사이에 애니메이션 실행
+                const partScrollStart = values[2].start * scrollHeight;
+                const partScrollEnd = values[2].end * scrollHeight;
+                const partScrollHeight = partScrollEnd - partScrollStart;
+
+                    if (currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd) {
+                        rv = (currentYOffset - partScrollStart) / partScrollHeight * (values[1] - values[0]) + values[0];
+                    } else if (currentYOffset < partScrollStart) {
+                        rv = values[0];
+                    } else if (currentYOffset > partScrollEnd) {
+                        rv = values[1];
+                    }
+                } else {
+                    rv = scrollRatio * (values[1] - values[0]) + values[0];
+                }
+
+                return rv;
         }
-    });
+
+        window.addEventListener('load', () => {
+            setLayout();
+        })
+
+        window.addEventListener('scroll', () => {
+            yOffset = window.pageYOffset;
+            scrollLoop();
+        })
+    })();
 
 </script>
 
