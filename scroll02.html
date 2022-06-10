@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="assets/css/reset.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>sticky</title>
+<style>
+    .wrap{ overflow:hidden; width:100vw; }
+
+    .icon{ position:absolute; }
+
+    .back-01{ top:6rem; left:3rem; }
+    .back-02{ bottom:4rem; right:5rem; }
+    .back-03{ top:-3rem; left:8rem; }
+
+    .main-top{
+        overflow: hidden;
+        position:relative;
+        background:#0a77ff;
+    }
+    .main-top .main-tit {
+        padding:10rem 0;
+        text-align:center;
+    }
+    .main-top .main-tit h1{
+        margin:1rem 0;
+        font-family: 'Gmarket Sans'; 
+        font-weight:700;
+        font-size:3rem;
+        color:#ffe818;
+    }
+    .main-top .main-tit span{
+        font-family: 'Gmarket Sans'; 
+        font-size:1.5rem;
+        color:#ffe818;
+    }
+    .main-top .main-tit p{
+        margin:3rem 0;
+        font-size:1rem;
+        color:#fff;
+    }
+    .main-top .main-tit a{
+        padding:.5rem 2rem;
+        font-size:1.2rem;
+        font-weight:700;
+        letter-spacing: -2px;
+        border:2px solid #333;
+        border-radius: 5rem;
+        background:#ffe818;
+        color:#333;
+    }
+    .section{
+        position:relative;
+        padding:10rem 0;
+        text-align:center;
+    }
+    .section .section-tit{
+        font-family: 'Gmarket Sans'; 
+        font-size:2rem;
+        font-weight:500;
+        letter-spacing: -1px;
+    }
+    .section .section-info{
+        margin:3rem 0;
+        font-weight:300;
+        letter-spacing: -1px;
+        line-height:1.5rem;
+        white-space: pre-line;
+    }
+
+    .section01 .gallery {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-auto-rows: 150px;
+        grid-auto-flow: row dense;
+    }
+    .section01 .gallery .box {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        box-sizing: border-box;
+        background: #eee;
+        color: #333;
+        grid-column-start: auto;
+        grid-row-start: auto;
+        border-radius: 1rem;
+    }
+    .box--large{
+        grid-row-end: span 3;
+    }
+    .box--middle{
+        grid-row-end: span 2;
+    }
+
+    @media (max-width:768px){
+        .icon{ width:120px; }
+        .icon img{
+            width:100%;
+        }
+        .back-01{ top:1rem; left:0.5rem; z-index: 0; }
+        .back-02{ bottom:4rem; right:-3rem; }
+        .back-03{ top:-3rem; left:2rem; }
+    }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="main-top">
+        <div class="icon back-01" icon-idx=1><img src="assets/img/scroll2/back-02.png"></div>
+        <div class="icon back-02" icon-idx=2><img src="assets/img/scroll2/back-03.png"></div>
+        <div class="container">
+            <div class="main-tit">
+                <span>재미로 공부해보는</span>
+                <h1>스크롤 애니메이션 구현</h1>
+                <p>공부하기 너무 싫어요. 인생을 날로 먹게 해주세요.</p>
+                <a>다른 코드 둘러보기</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section01">
+        <div class="icon back-03" icon-idx=3><img src="assets/img/scroll2/back-06.png"></div>
+        <div class="container">
+
+            <h2 class="section-tit">메리랑 달퐁이 넘 귀엽다. 🐶</h2>
+            <p class="section-info">인생의 커다란 행복을 안겨주고,
+                하루를 달래는 위로가 되어주며,
+                순간을 견디게 해주는 버팀목인 나의 보물.
+                우리 금수들은 사이가 아주 좋답니다. 깨발랄 큐트한 우리 금수들 보고 가세요. :3
+            </p>
+
+            <div class="gallery">
+
+                <div class="box">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box box--large">
+                    <div classㄴ="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box box--middle">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box box--middle">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-detail">
+                        테스트
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div> <!-- section01 -->
+
+    <div class="section section02">
+        <div class="container">
+
+        </div>
+    </div> <!-- section02 -->
+
+
+</div>
+
+<script>
+    const iconTriggerMargin = 300;
+    const iconElementList = document.querySelectorAll('.icon');
+
+    const iconElemnt=function(index, trans){
+        this.index=index;
+        this.trans=trans;
+    }
+
+    const iconList=[
+        new iconElemnt(1,2),
+        new iconElemnt(2,3),
+        new iconElemnt(3,6)
+    ]
+
+    const iconFunc = function() {
+      for (const element of iconElementList) {
+            iconList.forEach( ico => {
+              if (ico.index == element.getAttribute('icon-idx')){
+                if (window.innerHeight > element.getBoundingClientRect().top + iconTriggerMargin) {
+                    element.style.transform=`translateY(-${window.pageYOffset/ico.trans}px)`;
+                    console.log(ico.index + " : " + window.pageYOffset/ico.trans)
+                }              
+            }
+          });
+      }
+    }
+
+    window.addEventListener('load', iconFunc);
+    window.addEventListener('scroll', iconFunc);
+  </script>
+
+</body>
+</html>
