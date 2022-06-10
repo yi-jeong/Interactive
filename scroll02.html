@@ -61,6 +61,7 @@
         font-family: 'Gmarket Sans'; 
         font-size:2rem;
         font-weight:500;
+        line-height:2.5rem;
         letter-spacing: -1px;
     }
     .section .section-info{
@@ -98,6 +99,12 @@
     }
 
     @media (max-width:768px){
+        .main-top .main-tit h1{
+            white-space: pre-line;
+        }
+        .section .section-tit{
+            white-space: pre-line;
+        }
         .icon{ width:120px; }
         .icon img{
             width:100%;
@@ -118,7 +125,9 @@
         <div class="container">
             <div class="main-tit">
                 <span>재미로 공부해보는</span>
-                <h1>스크롤 애니메이션 구현</h1>
+                <h1>스크롤 
+                    애니메이션
+                    구현</h1>
                 <p>공부하기 너무 싫어요. 인생을 날로 먹게 해주세요.</p>
                 <a>다른 코드 둘러보기</a>
             </div>
@@ -129,7 +138,8 @@
         <div class="icon back-03" icon-idx=3><img src="assets/img/scroll2/back-06.png"></div>
         <div class="container">
 
-            <h2 class="section-tit">메리랑 달퐁이 넘 귀엽다. 🐶</h2>
+            <h2 class="section-tit">메리랑 달퐁이 
+                넘 귀엽다. 🐶</h2>
             <p class="section-info">인생의 커다란 행복을 안겨주고,
                 하루를 달래는 위로가 되어주며,
                 순간을 견디게 해주는 버팀목인 나의 보물.
@@ -192,15 +202,15 @@
     const iconTriggerMargin = 300;
     const iconElementList = document.querySelectorAll('.icon');
 
-    const iconElemnt=function(index, trans){
+    const iconElement=function(index, trans){
         this.index=index;
         this.trans=trans;
     }
 
     const iconList=[
-        new iconElemnt(1,2),
-        new iconElemnt(2,3),
-        new iconElemnt(3,6)
+        new iconElement(1,2),
+        new iconElement(2,3),
+        new iconElement(3,6)
     ]
 
     const iconFunc = function() {
